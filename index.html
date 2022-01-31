@@ -79,7 +79,7 @@ a {
 .container {
 	/* iPhone 가로 스크롤 방지 */
 	overflow-x: hidden;
-	background: #000;
+	
 }
 .scroll-section {
 	position: relative;
@@ -105,6 +105,7 @@ a {
 	/* background-position-y: 0%; */
 	color: white;
 	font-weight:400;
+	z-index:9999;
 }
 #scroll-section-0 h1 b {
 	padding-bottom: 2vh;
@@ -142,7 +143,8 @@ a {
 	font-size: 2.5rem;
 }
 .main-message.c {
-	font-size: 4.5rem;
+	font-size: 4.3rem;
+	white-space:nowrap;
 }
 .main-message p {
 	font-weight: bold;
@@ -156,7 +158,6 @@ a {
 	margin-bottom: 0.5em;
 	font-size: 1.2rem;
 	line-height:1.6em;
-
 }
 .main-message small span {
 	display:block;
@@ -329,11 +330,11 @@ a {
 	.title4 {transition-delay: 0.4s;}
 	.title5 {transition-delay: 0.5s;}
 	.title6 {transition-delay: 0.6s;}
-	.card-design {white-space:nowrap;width: 310vw;z-index:999; position:relative;transform: translateX(-100vw) rotateX(46deg) rotateY(0deg) rotateZ(-31deg); }
-	.card-design.on {width: 310vw;transform: translateX(0vw) rotateX(46deg) rotateY(0deg) rotateZ(-31deg);}
+	.preserve3D {transform-style:preserve-3d;position: fixed;top:130vw;height:20vw; top: auto;z-index:0; padding-top: 20vw;}
+	.card-design {white-space:nowrap;width: 310vw;z-index:999; position:relative;transform: translateX(0vw) rotateX(46deg) rotateY(0deg) rotateZ(-31deg);height:10px;  z-index:0;}
             .card-design::after {display:block; clear:both; content:'';}
             .card-design li {float:left;width: 40vw;padding: 0 2vw;}
-            .preserve3D {transform-style:preserve-3d;position: fixed;bottom: 70vw;top: auto;}
+            
             .swiper-slide span {display:block;width:100%; text-align:center;}
 
 
@@ -343,6 +344,20 @@ a {
 			.fourty {width:100%;margin-top: 5vw;}
 			.fourty .line {width:100%; height:1vw; background:#fff;display:block;margin:3vw 0;}
 			.fourty .right {float:right;}
+			.fourty .fourty_4 {animation:blink 2.5s forwards infinite linear; animation-delay:2.5s; font-weight:700;}
+			@keyframes blink {
+				0% {opacity:0;}
+				24% {opacity:0;}
+				25% {opacity:1;}
+				49% {opacity:1;}
+				50% {opacity:0;}
+				74% {opacity:0;}
+				75% {opacity:1;}
+				99% {opacity:1;}
+				100% {opacity:0}
+			}
+
+			.benefit img {max-width:10vw;}
             </style>
 
 </head>
@@ -476,40 +491,40 @@ a {
 				<div class="content">
 					<small class="b1">Card Benefit 01</small>
 					<h3 class="b2">대형마트 10% 할인</h3>
-					<small class="target"><span class="b4">이마트, 롯데마트, 홈플러스</span>
+					<small class="target"><span class="b4">이마트, 롯데마트, 홈플러스</span></small>
 				</div>
 				<div class="icon">
-					<img src="#" alt="">
+					<img src="./stroke2_files/cardList_Laser.png" alt="">
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit b">
 				<div class="content">
 					<small class="b1">Card Benefit 02</small>
 					<h3 class="b2">주유 100원/L 할인</h3>
-					<small class="target"><span class="b4">GS칼텍스, SK에너지, S-OIL, 현대오일뱅크</span>
+					<small class="target"><span class="b4">GS칼텍스, SK에너지, S-OIL, 현대오일뱅크</span></small>
 				</div>
 				<div class="icon">
-					<img src="#" alt="">
+					<img src="./stroke2_files/cardList_Laser.png" alt="">
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit c">
 				<div class="content">
 					<small class="b1">Card Benefit 03</small>
 					<h3 class="b2">온라인 쇼핑 10% 할인</h3>
-					<small class="target"><span class="b4">네이버쇼핑, G마켓, 옥션, 11번가, 쿠팡 등</span>
+					<small class="target"><span class="b4">네이버쇼핑, G마켓, 옥션, 11번가, 쿠팡 등</span></small>
 				</div>
 				<div class="icon">
-					<img src="#" alt="">
+					<img src="./stroke2_files/cardList_Laser.png" alt="">
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit d">
 				<div class="content">
 					<small class="b1">Card Benefit 04</small>
 					<h3 class="b2">배달 앱 10% 할인</h3>
-					<small class="target"><span class="b4">배달의민족, 요기요, 쿠팡이츠</span>
+					<small class="target"><span class="b4">배달의민족, 요기요, 쿠팡이츠</span></small>
 				</div>
 				<div class="icon">
-					<img src="#" alt="">
+					<img src="./stroke2_files/cardList_Laser.png" alt="">
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit e">
@@ -518,7 +533,7 @@ a {
 				<div class="content">
 					<small class="b1">Card Benefit 05</small>
 					<h3 class="b2">생활요금 정기결제 7% 할인</h3>
-					<small class="target"><span class="b4">SK/KT/LG, 아파트관리비, 도시가스 자동이체</span>
+					<small class="target"><span class="b4">SK/KT/LG, 아파트관리비, 도시가스 자동이체</span></small>
 						
 				</div>
 				<div class="icon">
@@ -787,8 +802,43 @@ const sceneInfo = [
 		scrollHeight: 0,
 		objs: {
 			container: document.querySelector('#scroll-section-1'),
+			benefitA: document.querySelector('#scroll-section-1 .main-message.benefit.a'),
+			benefitB: document.querySelector('#scroll-section-1 .main-message.benefit.b'),
+			benefitC: document.querySelector('#scroll-section-1 .main-message.benefit.c'),
+			benefitD: document.querySelector('#scroll-section-1 .main-message.benefit.d'),
+			benefitE: document.querySelector('#scroll-section-1 .main-message.benefit.e'),
 		},
-		values: {}
+		values: {
+			benefitA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+			benefitA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+			benefitA_opacity_out: [1, 0, { start: 0.37, end: 0.4 }],
+			benefitA_translateY_out: [0, -20, { start: 0.37, end: 0.4 }],
+
+
+			messageB_opacity_in: [0, 1, { start: 0.4, end: 0.5 }],
+			messageBContent_translateY_in: [20, 0, { start: 0.4, end: 0.5 }],
+
+
+			benefitB_opacity_in: [0, 1, { start: 0.4, end: 0.5 }],
+			benefitB_translateY_in: [20, 0, { start: 0.4, end: 0.5 }],
+			benefitB_opacity_out: [1, 0, { start: 0.67, end: 0.7 }],
+			benefitB_translateY_out: [0, -20, { start: 0.67, end: 0.7 }],
+			
+			benefitC_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
+			benefitC_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
+			benefitC_opacity_out: [1, 0, { start: 0.97, end: 1 }],
+			benefitC_translateY_out: [0, -20, { start: 0.97, end: 1 }],
+
+			benefitD_opacity_in: [0, 1, { start: 1.1, end: 1.2 }],
+			benefitD_translateY_in: [20, 0, { start: 1.1, end: 1.2 }],
+			benefitD_opacity_out: [1, 0, { start: 1.37, end: 1.4 }],
+			benefitD_translateY_out: [0, -20, { start: 1.37, end: 1.4 }],
+
+			benefitE_opacity_in: [0, 1, { start: 1.4, end: 1.5 }],
+			benefitE_translateY_in: [20, 0, { start: 1.4, end: 1.5 }],
+			benefitE_opacity_out: [1, 0, { start: 1.67, end: 1.7 }],
+			benefitE_translateY_out: [0, -20, { start: 1.67, end: 1.7 }],
+		}
 	},
 ];
 function playAnimation() {
@@ -940,9 +990,36 @@ function playAnimation() {
 			objs.fourty_4.style.transform = `translateY(${calcValues(values.fourty_4_translateY_in, currentYOffset)}px)`;
 			
 			break;
+
+			case 1:
+				
+				if (scrollRatio <= 0.25) {
+				// in
+				objs.benefitA.style.opacity = calcValues(values.benefitA_opacity_in, currentYOffset);
+				objs.benefitA.style.transform = `translate3d(0, ${calcValues(values.benefitA_translateY_in, currentYOffset)}%, 0)`;
+			} else {
+				// out
+				objs.benefitA.style.opacity = calcValues(values.benefitA_opacity_out, currentYOffset);
+				objs.benefitA.style.transform = `translate3d(0, ${calcValues(values.benefitA_translateY_out, currentYOffset)}%, 0)`;
+			}
+
+				
 	}
 }
 
+
+
+
+
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
+///////////////////////////////////////setLayout///////////////////////////////////////
 function setLayout() {
 	// 각 스크롤 섹션의 높이 세팅
 	for (let i = 0; i < sceneInfo.length; i++) {
@@ -1075,7 +1152,7 @@ window.addEventListener('load', () => {
 	document.body.classList.remove('before-load');
 	setLayout();
 	setTimeout(function(){
-					$('.title1, .title2, .title3, .title4, .title5, .title6, .card-design').addClass('on');
+					$('.title1, .title2, .title3, .title4, .title5, .title6').addClass('on');
 				}, 200)
 
 	window.addEventListener('scroll', () => {

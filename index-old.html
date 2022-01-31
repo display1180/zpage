@@ -801,11 +801,11 @@ function playAnimation() {
 	switch (currentScene) {
 		case 0:
 
-			if (scrollRatio <= 0.08) {
-				objs.messageTitle.style.opacity = calcValues(values.messageTitle_opacity_in, currentYOffset);
-			} else {
-				objs.messageTitle.style.opacity = calcValues(values.messageTitle_opacity_out, currentYOffset);
-			}
+			// if (scrollRatio <= 0.08) {
+			// 	objs.messageTitle.style.opacity = calcValues(values.messageTitle_opacity_in, currentYOffset);
+			// } else {
+			// 	objs.messageTitle.style.opacity = calcValues(values.messageTitle_opacity_out, currentYOffset);
+			// }
 
 			if (scrollRatio <= 0.25) {
 				
@@ -916,9 +916,9 @@ function playAnimation() {
 			}
 
 			
-			objs.preserve3D.style.transform = `translateY(${calcValues(values.preserve3D_translateY_in, currentYOffset)}px)`;
-			objs.preserve3D.style.opacity = calcValues(values.preserve3D_opacity_in, currentYOffset);
-			objs.cardDesign.style.transform = `rotateX(46deg) rotateY(0deg) rotateZ(-31deg) translateX(${calcValues(values.cardDesign_translateX_in, currentYOffset)}vw)`;
+			// objs.preserve3D.style.transform = `translateY(${calcValues(values.preserve3D_translateY_in, currentYOffset)}px)`;
+			// objs.preserve3D.style.opacity = calcValues(values.preserve3D_opacity_in, currentYOffset);
+			// objs.cardDesign.style.transform = `rotateX(46deg) rotateY(0deg) rotateZ(-31deg) translateX(${calcValues(values.cardDesign_translateX_in, currentYOffset)}vw)`;
 			objs.pencilLogo.style.opacity = calcValues(values.pencilLogo_opacity_out, currentYOffset);
 			objs.pencil.style.right = `${calcValues(values.pencil_right, currentYOffset)}%`;
 			objs.pencil.style.bottom = `${calcValues(values.pencil_bottom, currentYOffset)}%`;
