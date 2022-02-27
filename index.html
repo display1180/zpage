@@ -8,6 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap" rel="stylesheet">
 	<!-- <link rel="stylesheet" href="css/default.css">
 	<link rel="stylesheet" href="css/main.css"> -->
+	
 	<style>
         html {
 	font-family: 'Apple SD Gothic Neo', Roboto, 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
@@ -16,6 +17,7 @@
 }
 body {
 	-webkit-font-smoothing: antialiased;
+	overflow-x:hidden;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -238,6 +240,7 @@ a {
 	top: 50%;
 	width: 8000vw;
 	transform: translate(-10%, -50%);
+	opacity:0;
 }
 .pencil {
 	left: auto;
@@ -301,12 +304,13 @@ a {
     .notice_list , .law {background:white;padding: 10vw 5vw;}
     .cont h3 {background:#0085ca;color:#fff;border-radius:30px;margin-bottom:10px;display: inline-block;padding: 2px 20px;}
     .start1 {display:block; }
-    .apply { z-index:100; position:fixed;  bottom:30px; width:calc(100% - 30px); margin:0 15px; border-radius:60px; box-shadow:6px 10px 15px rgba(0,0,0,.4); }
+    .apply { z-index:100; position:fixed;  bottom:30px; width:calc(100% - 30px); margin:0 15px; border-radius:60px; box-shadow:6px 10px 15px rgba(0,0,0,.4); left:0; opacity:1 !important;}
     .apply>a { display:block; width:100%; padding:22px 0 18px; border-radius:60px; background-color:#5d3c97; color:#fff; text-align:center; font-size:20px; font-family:"YouandiModernHB"; }
      h3 {padding-bottom:10px;font-size: 24px;}
     ul.notice_list { padding:30px 15px; font-size:12px; line-height:1.8; max-width:900px; margin: 0 auto; }
     ul.notice_list li { position:relative; padding-left:10px; color:#525252; }
     ul.notice_list li:not(.noti_tit)::before { content:"-"; position:absolute; top:0; left:0; display:block; }
+	ul.notice_list h6 {font-size:1em;}
 
     ul.notice_list>li.specialBenefit { padding:0; }
     ul.notice_list>li.specialBenefit:before { display:none; }
@@ -330,8 +334,28 @@ a {
 	.title4 {transition-delay: 0.4s;}
 	.title5 {transition-delay: 0.5s;}
 	.title6 {transition-delay: 0.6s;}
-	.preserve3D {transform-style:preserve-3d;position: fixed;top:130vw;height:20vw; top: auto;z-index:0; padding-top: 20vw;}
+	.preserve3D {transform-style:preserve-3d;position: fixed;opacity:0;top:130vw;height:20vh; top: auto;z-index:0; padding-top: 20vw;transition:0.5s all /*cubic-bezier(0.175, 0.885, 0.32, 1.275)*/ease-in-out; }
+	.preserve3D.on {opacity:1;}
 	.card-design {white-space:nowrap;width: 310vw;z-index:999; position:relative;transform: translateX(0vw) rotateX(46deg) rotateY(0deg) rotateZ(-31deg);height:10px;  z-index:0;}
+	.scroll {display:block; position:fixed; bottom:101px; left:50%; transform:translateX(-50%); font-size:13px;color:#fff9;}
+	.scroll::after {display:block;}
+	.scroll span {display:inline-block; position:relative; color:transparent; background:linear-gradient(to top, #fff 0%, #fff 50%, #fff9 50%, #fff9 100%); background-size: 30px 30px;  -webkit-background-clip:text;    background-position-y: 0px; animation: bgDown 2s linear infinite; }
+	/* .scroll span::after {display:block; content:''; width:13px; height:13px; background:#fff; position:absolute; top:0; left:0; /*animation: Down 2s linear infinite;}*/ 
+	
+	/* .scroll span:before, .scroll span:after {display:block; content:''; width: 1px;height: 6px;position: fixed;top: -13px;left: 140px;background: white;transform: rotate(45deg) translate(3px,-3px);} */
+	@keyframes Down {
+		0% {transform:translateY(-2px); opacity:0.2;}
+		50% {transform:translateY(2px); opacity:1;}
+		100% {transform:translateY(-2px); opacity:0.2;}
+	}
+	@keyframes bgDown {
+		0% {background-position-y:0;}
+		50% {background-position-y:15px;}
+		98% {background-position-y:15px;}
+		99% {background-position-y:0px;}
+	}
+	/* .scroll span:after {transform:rotate(-45deg);} */
+
             .card-design::after {display:block; clear:both; content:'';}
             .card-design li {float:left;width: 40vw;padding: 0 2vw;}
             
@@ -357,11 +381,100 @@ a {
 				100% {opacity:0}
 			}
 
-			.benefit img {max-width:10vw;}
-            </style>
+			@keyframes count_date {
+				0% {transform: translateY(0px);}
+				100% {transform: translateY(-4000px)l}
+			}
 
+			.benefit img {max-width:10vw;}
+
+			/* section 02 */
+
+			.sticky-elem-canvas {top:50%; opacity:1; max-width: 60vw; width:100%;  left:50%; transform:translate(-50%, -50%); z-index:99;background:#fff3;border-radius:50%;padding:10vw;backdrop-filter:blur(5px); border:1px solid rgba(255,255,255,0.2); filter:saturate(1.3);}
+			@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+				.sticky-elem-canvas {
+					backdrop-filter:blur(5px); 
+				}
+			}
+			@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+				.sticky-elem-canvas {
+					backdrop-filter:blur(5px); 
+				}
+			}
+			.sticky-elem-canvas canvas {width:100%; }
+			.sticky-elem-canvas canvas::after {display:block; content:''; width:300px; height:300px;filter:blur(10px);position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);backdrop-filter:blur(5px)}
+
+			.normal-content {margin-top:300px;}
+			.normal-content .more {font-size: 14px; text-align:center;}
+			.normal-content .more a {color:#fff; display:block; }
+
+			.full .card-face {transform-style:preserve-3d; transform-origin:center;height:250px; }
+			.full .cardDimension .card-face img{    position: absolute;top: 0;left: 0;transform: rotateY(-50deg);}
+	.full {height:70vh;position:relative; z-index:30; transform:translateY(-5vh); background:linear-gradient(to bottom, transparent, #000)}
+	.full .more {display:block;}
+	.more .fee { color:#fff;}
+	.more a {color: #5d3c97 !important; display:inline-block; width:fit-content;margin: 20px auto; margin-top:45px;background:#fff; padding:8px 15px; border-radius:50px;}
+	.full h3 {text-align:center; color:#fff; padding-bottom:50px; padding-top:50px;}
+
+	.cube_wrap {margin:10vw auto;transform-style:preserve-3D;  width: 31.4vw; height:50vw; margin: 0 auto;perspective:500px; }
+	.cube_wrap .cube_box {position:relative; height:100%; transform-style:preserve-3D ;transform: rotateX(-20deg) rotateY(-80deg); animation:cube_rotate 6s linear infinite }
+	.cube_wrap .cube_box .cube_face {position:absolute; left:0; top:0; width:100%; height:100%; background-repeat:no-repeat ; background-image:linear-gradient(to bottom, #5d3c97, #5d3c97); background-position:center;}
+
+	@keyframes cube_rotate {
+		0% {transform:rotateX(0deg) rotateY(-90deg) }
+		25% {transform:rotateX(0deg) rotateY(0deg) }
+		50% {transform:rotateX(0deg) rotateY(90deg) }
+		75% {transform:rotateX(0deg) rotateY(180deg) }
+		100% {transform:rotateX(0deg) rotateY(270deg) }
+	}
+
+	.cube_wrap .cube_box .cube_face.front {transform:rotateY(0deg) translateZ(0.5vw); background:url(./images/cardList_Family.png) no-repeat center/ 100% 100%}
+	.cube_wrap .cube_box .cube_face.front2 {transform:rotateY(0deg) translateZ(0.48vw); background:#5d3c97 no-repeat center/ 100% 100%; border-radius:5px;}
+	.cube_wrap .cube_box .cube_face.back {transform:rotateY(180deg) translateZ(0.25vw);background:url(./images/card_ZF_BA_b.png) no-repeat center/ contain; }
+	.cube_wrap .cube_box .cube_face.back2 {transform:rotateY(180deg) translateZ(0.22vw);background:#5d3c97 center/ contain;border-radius:5px; }
+	.cube_wrap .cube_box .cube_face.left {transform:rotateY(-90deg) translateZ(0.25vw);width:0.5vw;background-size: 100% 95%;}
+	.cube_wrap .cube_box .cube_face.right {transform:rotateY(90deg) translateZ(31.3vw);width:0.5vw; background-size: 100% 95%;}
+	.cube_wrap .cube_box .cube_face.top {transform:rotateX(90deg) translateZ(0.25vw); height:0.5vw;background-size: 95% 100%;}
+	.cube_wrap .cube_box .cube_face.bottom {transform:rotateX(-90deg) translateZ(49.8vw); height:0.5vw; background-size: 95% 100%;}
+
+							.fourty .right span {float:left; overflow:hidden;height:5.4rem;}
+							.fourty .right span em {display:block;padding:0; margin:0 ; font-style:normal;}
+							.fourty.on .right span em {animation:count_date 0.8s forwards;}
+							
+
+@keyframes count_date {
+    0% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(-82.5rem);
+        /* 높이 x 롤링될 개수로 구한값 */
+    }
+}
+
+					.benefit .bene-line {position:relative;}
+					.benefit .bene-line span, .benefit .bene-line img {float:left;padding: 3vw;padding-left:0;font-weight:600;}
+					.benefit .bene-line > .benes {position:relative;width:88vw;height:5rem;}
+					.benefit .bene-line span {padding-top:2vw;}
+					.benefit .bene-line img {max-width:20vw;width:auto; height:auto;}
+					.benefit .bene-line img {display:none;}
+					.benefit .bene-wrap {opacity:0.2;filter:saturate(0.5);width:1000vh;height:5rem;display: flex;flex-direction: row;align-items: center;}
+					.benefit  .b .bene-wrap, .benefit  .d .bene-wrap {right:0;position:absolute;width:355vw;}
+					.benefit .b .bene-wrap span, .benefit .b .bene-wrap img , .benefit .d .bene-wrap span, .benefit .d .bene-wrap img {float:right;white-space:nowrap;}
+					.benefit .b .bene-wrap img:last-child , .benefit .d .bene-wrap img:last-child {padding-right:0;}
+					.body-bg {position:fixed; width:100%; height:100vh; }
+
+					.progress-container {position:fixed; left:0; bottom:0;height:3px; width:100%; background:#fff4;}
+					.progress-container #myBar {width:0; height:3px; position:fixed; left:0; bottom:0; background:#975bff;}
+					.orbit-canvas{position:relative; z-index:998; }
+					.orbit-canvas canvas {position:absolute; top:0; left:0;z-index:999; height:90%}
+					
+					
+</style>
 </head>
 <body class="before-load">
+	<!-- <div class="body-bg"></div> -->
 	<div class="loading">
 		<svg class="loading-circle">
 			<circle cx="50%" cy="50%" r="25"></circle>
@@ -369,8 +482,20 @@ a {
 	</div>
 	<div class="container">
 		<section class="scroll-section" id="scroll-section-0">
+			<div class="apply">
+				<a href="https://card.hyundaicard.com/include2021/event/disney_april.html" download id="btnApply" >
+					<input type="hidden" name="cardwcd" id="bottom_cardwcd" value="ZF">
+					<span>Z Family 응모하기</span>
+					<div class="scroll">화면을 스크롤해 주세요	
+						<span>&#x2B07;</span></div>
+				</a>
+				<div class="progress-container">
+					<div class="progress-bar" id="myBar"></div>
+				  </div>  
+			</div> 
 			<h1 class="sticky-elem main-message title"><small class="title1 titles" >구간반복 할인카드, 현대카드 Z family</small>
-				
+				<style>
+				</style>
 				<b><span class="titles title2">지금 응모하고 이용하면 </span><br><span class="titles title3">최대 10만원 캐시백 이벤트</span></b> 
 				<small class="titles title4">응모기간 : 2022. 2. 1 ~ 2. 28</small>
 			<small class="target"><span class="titles title5">응모 직전 6개월간 모든 현대카드 </span><span class="titles title6">결제이력이 없는 회원 대상</span></small></h1>
@@ -386,28 +511,28 @@ a {
 				
 				<div class="sb sb1 row">
 					<div class="icon-box">
-						<img src="./stroke2_files/zi1.png" alt="GS칼텍스">
+						<img src="./images/zi1.png" alt="GS칼텍스">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi2.png" alt="SK에너지">
+						<img src="./images/zi2.png" alt="SK에너지">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi3.png" alt="S-OIL">
+						<img src="./images/zi3.png" alt="S-OIL">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi4.png" alt="현대오일뱅크">
+						<img src="./images/zi4.png" alt="현대오일뱅크">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi1.png" alt="GS칼텍스">
+						<img src="./images/zi1.png" alt="GS칼텍스">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi2.png" alt="SK에너지">
+						<img src="./images/zi2.png" alt="SK에너지">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi3.png" alt="S-OIL">
+						<img src="./images/zi3.png" alt="S-OIL">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi4.png" alt="현대오일뱅크">
+						<img src="./images/zi4.png" alt="현대오일뱅크">
 					</div>
 				</div>
 			</div>
@@ -428,22 +553,22 @@ a {
 				</div>
 				<div class="sb sb2 row">
 					<div class="icon-box">
-						<img src="./stroke2_files/zi5.png" alt="이마트">
+						<img src="./images/zi5.png" alt="이마트">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi6.png" alt="롯데마트">
+						<img src="./images/zi6.png" alt="롯데마트">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi7.png" alt="홈플러스">
+						<img src="./images/zi7.png" alt="홈플러스">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi5.png" alt="이마트">
+						<img src="./images/zi5.png" alt="이마트">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi6.png" alt="롯데마트">
+						<img src="./images/zi6.png" alt="롯데마트">
 					</div>
 					<div class="icon-box">
-						<img src="./stroke2_files/zi7.png" alt="홈플러스">
+						<img src="./images/zi7.png" alt="홈플러스">
 					</div>
 				</div>
 			</div>
@@ -454,12 +579,28 @@ a {
 					<small class="target"><span class="c4">어디서나 400,000원 이상 결제 시</span>
 					<span class="c5">10% 캐시백(4만원)</span></small>
 					<div class="fourty">
+						
 						<div class="row fourty_1">
-							<span class="right">0</span>
+							<div class="right">
+								<span><em><br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4</em></span>
+								<span><em style="animation-delay:0.1s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em style="animation-delay:0.2s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em  style="animation-delay:0.3s"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>,</em></span>
+								<span><em style="animation-delay:0.4s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em style="animation-delay:0.55s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em style="animation-delay:0.7s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+							</div>
 						</div>
 						<div class="row fourty_2">
 							<span class="left">-</span>
-							<span class="right">0</span>
+							<div class="right">
+								<span><em style="animation-delay:0.9s"><br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4</em></span>
+								<span><em style="animation-delay:1s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em  style="animation-delay:1.1s"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>,</em></span>
+								<span><em style="animation-delay:1.2s"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em style="animation-delay:1.4s; animation-duration: 1s;"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+								<span><em style="animation-delay:1.6s;animation-duration: 1s;"><br>5<br>6<br>7<br>8<br>9<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0</em></span>
+							</div>
 						</div>
 						<div class="row fourty_3">
 							<span class="line"></span>
@@ -473,28 +614,49 @@ a {
 			<div class="sticky-elem main-message d" style="opacity: 0.164921; transform: translate3d(0px, -8.35079%, 0px);">
 					
 			</div>
-			<img class="sticky-elem pencil" src="./stroke2_files/cardList_Clap.png" style="right: 70%; bottom: 110%; transform: rotate(-200deg);">
+			<img class="sticky-elem pencil pencil1" src="./images/cardList_Clap.png" style="right: 70%; bottom: 110%; transform: rotate(-200deg);">
+			<img class="sticky-elem pencil pencil2" src="./images/cardList_Slate.png" style="right: 70%; bottom: 110%; transform: rotate(-200deg);">
 			<div class="preserve3D sticky-elem" >
                 <ul class="card-design row" >
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Family.png" alt="Family Z"><span>Family Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Sweet.png" alt="Sweet Z"><span>Sweet Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Rolling.png" alt="Rolling Z"><span>Rolling Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Block.png" alt="Block Z"><span>Block Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Slate.png" alt="Slate Z"><span>Slate Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Laser.png" alt="Laser Z"><span>Laser Z</span></li>
-                    <li class="swiper-slide"><img src="./stroke2_files/cardList_Clap.png" alt="Clap Z"><span>Clap Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Family.png" alt="Family Z"><span>Family Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Sweet.png" alt="Sweet Z"><span>Sweet Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Rolling.png" alt="Rolling Z"><span>Rolling Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Block.png" alt="Block Z"><span>Block Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Slate.png" alt="Slate Z"><span>Slate Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Laser.png" alt="Laser Z"><span>Laser Z</span></li>
+                    <li class="swiper-slide"><img src="./images/cardList_Clap.png" alt="Clap Z"><span>Clap Z</span></li>
                 </ul>
+
+				
             </div>
+			
 		</section>
 		<section class="scroll-section" id="scroll-section-1">
 			<div class="sticky-elem main-message benefit a">
 				<div class="content">
+					
 					<small class="b1">Card Benefit 01</small>
 					<h3 class="b2">대형마트 10% 할인</h3>
 					<small class="target"><span class="b4">이마트, 롯데마트, 홈플러스</span></small>
 				</div>
-				<div class="icon">
-					<img src="./stroke2_files/cardList_Laser.png" alt="">
+			
+				<div class="sticky-elem bene-line a">
+						<div class="benes a">
+							<div class="bene-wrap">
+								<span>이마트</span><img src="./images/zi5.png" alt="이마트"><span>이마트</span><img src="./images/zi5.png" alt="이마트"><span>이마트</span><img src="./images/zi5.png" alt="이마트"><span>이마트</span><img src="./images/zi5.png" alt="이마트"><span>이마트</span><img src="./images/zi5.png" alt="이마트"><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span><span>이마트</span>
+								
+							</div>
+						</div>
+						<div class="benes b">
+							<div class="bene-wrap">
+								<span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><img src="./images/zi6.png" alt="롯데마트"><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span><span>롯데마트</span>
+							</div>
+						</div>
+						<div class="benes c">
+							<div class="bene-wrap">
+								<span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><img src="./images/zi7.png" alt="홈플러스"><span>홈플러스</span><span>홈플러스</span><span>홈플러스</span><span>홈플러스</span>
+							</div>
+						</div>
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit b">
@@ -503,9 +665,28 @@ a {
 					<h3 class="b2">주유 100원/L 할인</h3>
 					<small class="target"><span class="b4">GS칼텍스, SK에너지, S-OIL, 현대오일뱅크</span></small>
 				</div>
-				<div class="icon">
-					<img src="./stroke2_files/cardList_Laser.png" alt="">
-				</div>
+				<div class="sticky-elem bene-line b">
+					<div class="benes a">
+						<div class="bene-wrap">
+							<span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><img src="./images/zi4.png" alt="GS칼텍스"><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span><span>GS칼텍스</span>
+						</div>
+					</div>
+					<div class="benes b">
+						<div class="bene-wrap">
+							<span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><img src="./images/zi3.png" alt="SK에너지"><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span><span>SK에너지</span>
+						</div>
+					</div>
+					<div class="benes c">
+						<div class="bene-wrap">
+							<span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><img src="./images/zi2.png" alt="S-OIL"><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span><span>S-OIL</span>
+						</div>
+					</div>
+					<div class="benes d">
+						<div class="bene-wrap">
+							<span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><img src="./images/zi1.png" alt="현대오일뱅크"><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span><span>현대오일뱅크</span>
+						</div>
+					</div>
+			</div>
 			</div>
 			<div class="sticky-elem main-message benefit c">
 				<div class="content">
@@ -513,8 +694,35 @@ a {
 					<h3 class="b2">온라인 쇼핑 10% 할인</h3>
 					<small class="target"><span class="b4">네이버쇼핑, G마켓, 옥션, 11번가, 쿠팡 등</span></small>
 				</div>
-				<div class="icon">
-					<img src="./stroke2_files/cardList_Laser.png" alt="">
+				<style>
+					.main-message.c .bene-line.c {font-size:2.5rem}
+				</style>
+				<div class="sticky-elem bene-line c">
+					<div class="benes a">
+						<div class="bene-wrap">
+							<span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><img src="./images/zi8.png" alt="네이버쇼핑"><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span><span>네이버쇼핑</span>
+						</div>
+					</div>
+					<div class="benes b">
+						<div class="bene-wrap">
+							<span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><img src="./images/zi9.png" alt="G마켓"><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span><span>G마켓</span>
+						</div>
+					</div>
+					<div class="benes c">
+						<div class="bene-wrap">
+							<span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><img src="./images/zi10.png" alt="옥션"><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span><span>옥션</span>
+						</div>
+					</div>
+					<div class="benes d">
+						<div class="bene-wrap">
+							<span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><img src="./images/zi11.png" alt="11번가"><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span><span>11번가</span>
+						</div>
+					</div>
+					<div class="benes e">
+						<div class="bene-wrap">
+							<span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><img src="./images/zi12.png" alt="쿠팡"><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span><span>쿠팡</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="sticky-elem main-message benefit d">
@@ -523,27 +731,77 @@ a {
 					<h3 class="b2">배달 앱 10% 할인</h3>
 					<small class="target"><span class="b4">배달의민족, 요기요, 쿠팡이츠</span></small>
 				</div>
-				<div class="icon">
-					<img src="./stroke2_files/cardList_Laser.png" alt="">
-				</div>
+				<div class="sticky-elem bene-line d">
+					<div class="benes a">
+						<div class="bene-wrap">
+							<span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><img src="./images/zi13.png" alt="배달의민족"><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span><span>배달의민족</span>
+						</div>
+					</div>
+					<div class="benes b">
+						<div class="bene-wrap">
+							<span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><img src="./images/zi14.png" alt="요기요"><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span><span>요기요</span>
+						</div>
+					</div>
+					<div class="benes c">
+						<div class="bene-wrap">
+							<span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><img src="./images/zi15.png" alt="쿠팡이츠"><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span><span>쿠팡이츠</span>
+						</div>
+					</div>
+			</div>
 			</div>
 			<div class="sticky-elem main-message benefit e">
-				<a href="#">Z family 자세히보기</a>
-				<span class="fee">*연회비 국내전용/국내외겸용(VISA/MasterCard) 1만원</span>
+				
 				<div class="content">
 					<small class="b1">Card Benefit 05</small>
 					<h3 class="b2">생활요금 정기결제 7% 할인</h3>
 					<small class="target"><span class="b4">SK/KT/LG, 아파트관리비, 도시가스 자동이체</span></small>
-						
+					
 				</div>
-				<div class="icon">
-					<img src="#" alt="">
-				</div>
+				<div class="sticky-elem bene-line e">
+					<div class="benes a">
+						<div class="bene-wrap">
+							<span>SK/KT/LG</span><img src="./images/zi16.png" alt="SK/KT/LG"><span>SK/KT/LG</span><img src="./images/zi16.png" alt="SK/KT/LG"><span>SK/KT/LG</span><img src="./images/zi16.png" alt="SK/KT/LG"><span>SK/KT/LG</span><img src="./images/zi16.png" alt="SK/KT/LG"><span>SK/KT/LG</span><img src="./images/zi16.png" alt="SK/KT/LG"><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span><span>SK/KT/LG</span>
+						</div>
+					</div>
+					<div class="benes b">
+						<div class="bene-wrap">
+							<span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><img src="./images/zi17.png" alt="아파트관리비"><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span><span>아파트관리비</span>
+						</div>
+					</div>
+					<div class="benes c">
+						<div class="bene-wrap">
+							<span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><img src="./images/zi18.png" alt="도시가스 자동이체"><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span><span>도시가스 자동이체</span>
+						</div>
+					</div>
+			</div>
 				
 			</div>
-			
+			<div class="sticky-elem sticky-elem-canvas">
+				<canvas id="video-canvas-0" width="540" height="540" ></canvas>
+			</div>
 		</section>
+		
 		<div class="normal-content">
+			<section class="full">
+				<h3>대상카드</h3>
+				<div class="cube_wrap">
+					<div class="cardDimension cube_box">
+						<div class="cube_face front"></div>
+						<div class="cube_face front front2"></div>
+						<div class="cube_face back"></div>
+						<div class="cube_face back back2"></div>
+						<div class="cube_face left"></div>
+						<div class="cube_face right"></div>
+						<div class="cube_face top"></div>
+						<div class="cube_face bottom"></div>
+					</div>
+				</div>
+				
+				<div class="more">
+					<a href="#">Z family 자세히보기</a>
+					<span class="fee">*연회비 국내전용/국내외겸용(VISA/MasterCard) 1만원</span>
+				</div>
+			</section>
 			<section>
 				<p class="mid-message">
 					<!-- Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur corrupti distinctio nulla explicabo. Molestiae, cum explicabo nisi architecto est animi corporis optio vel eligendi maxime temporibus, dicta, adipisci libero obcaecati error! Quidem quibusdam nesciunt aperiam qui reprehenderit distinctio est velit facere. Earum doloribus, maiores pariatur sequi alias repudiandae distinctio dolore voluptatibus, animi aliquid quos, repellendus ipsa tenetur id. Quam voluptatum nam consequuntur ratione fugit totam repellat, nulla velit omnis odio aperiam recusandae hic quibusdam officia. Iste ducimus voluptas culpa harum neque tenetur reiciendis ullam quae, quas numquam a sunt cupiditate exercitationem quod doloribus at. Id repudiandae dolor aut facilis pariatur! -->
@@ -612,16 +870,72 @@ a {
 				<li>자세한 내용은 카드 신청 전 현대카드 홈페이지 및 금융상품설명서, 약관을 참고하시기 바랍니다.</li>
 				<li>여신금융협회 심의필 제 2021 - C1h - 09167호 (2021.10.08 ~ 2022.10.07)</li>
 			</ul>
-			<div class="apply">
-				<a href="https://card.hyundaicard.com/include2021/event/stroke2.html#none" id="btnApply" onclick="return false;">
-					<input type="hidden" name="cardwcd" id="bottom_cardwcd" value="ZF">
-					<span>Z Family 응모하기</span>
-				</a>
-			</div> 
+			<div class="orbit-canvas">
+
+			</div>
 			</section>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- <script src="js/Three.module.js" type="module"></script> -->
+	<script src="./build/three.js" ></script>
+	<script src="./build/controls/OrbitControls.js" ></script>
+	<script>
+
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+		const renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+		const textureLoader = new THREE.TextureLoader();
+		const textureImage = textureLoader.load('/images/cardList_Family.png'
+		);
+
+		const rightTexture = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+		const leftTexture = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+		const topTexture = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+		const bottomTexture = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+		const frontTexture = textureLoader.load('/images/cardList_Family.png');
+		const backTexture = textureLoader.load('/images/card_ZF_BA_b.png');
+
+		const materials = [
+			 new THREE.MeshBasicMaterial({color:0x5d3c97}),
+			 new THREE.MeshBasicMaterial({color:0x5d3c97}),
+			 new THREE.MeshBasicMaterial({color:0x5d3c97}),
+			 new THREE.MeshBasicMaterial({color:0x5d3c97}),
+			 new THREE.MeshBasicMaterial({map:frontTexture}),
+			 new THREE.MeshBasicMaterial({map:backTexture}),
+		];
+		
+		const geometry = new THREE.BoxGeometry(1,1.58,0.02);
+		// const material = new THREE.MeshBasicMaterial( { 
+		// map: materials} );
+		const cube = new THREE.Mesh( geometry, materials );
+		scene.add( cube );
+		
+
+		camera.position.z = 5;
+	
+		const controls = new THREE.OrbitControls( camera, renderer.domElement );
+		console.log(controls);
+		controls.autoRotate = true;
+		controls.autoRotateSpeed = 9;
+		controls.enabled = true;
+		controls.enableDamping = true;
+		controls.update();
+
+		function animate() {
+			requestAnimationFrame( animate );
+
+			cube.rotation.y += 0.01;
+			cube.rotation.x += 0.001;
+			controls.update();
+			renderer.render( scene, camera );
+		};
+
+		animate();
+	</script>
 	<script>
 		(() => {
 
@@ -638,13 +952,50 @@ let rafId;
 function numberWithCommas(x) {
        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
    }
+function countDate() {
+	var fourty1 = document.querySelector('.fourty_1');
+	var fourty2 = document.querySelector('.fourty_2');
+	var fourty1Num = 400000;
+	var fourty2Num = 40000;
+	var rolling = 24;
+	var resultArray1 = [];
+	var resultArray2 = [];
+	resultArray1 = fourty1Num.split('');
+	resultArray2 = fourty2Num.split('');
 
+	$.each(resultArray1, function(idx, val){
+		var countBox = $('<div class="count_box"></div>');
+		var numberArray1 = [];
+		var number = Number(val);
+		for (var i=0; i <= rolling; i++) {
+			var sum = number +1;
+			var num = sum >= 10 ? Number(String(sum).split('')[1]) : sum;
+			numberArray1[i] = num;
+			numberArray1.reverse();
+			numberArray.forEach(function(val){
+				var countValue = $('<span/>', {
+					text:val
+				});
+
+				countValue.appendTo(countBox);
+			});
+			countBox.appendTo(el).delay(idx * 300).que(function(){
+				$(this).addClass('active');
+			})
+		}
+		countDate();
+	})
+	setTimeout(function(){
+		$('section').addClass('active');
+	})
+	
+}
 const sceneInfo = [
 	
 	{
 		// 0
 		type: 'sticky',
-		heightNum: 4, // 브라우저 높이의 5배로 scrollHeight 세팅
+		heightNum: 3, // 브라우저 높이의 5배로 scrollHeight 세팅
 		scrollHeight: 0,
 		objs: {
 			container: document.querySelector('#scroll-section-0'),
@@ -656,6 +1007,7 @@ const sceneInfo = [
 			messageTitle_5: document.querySelector('#scroll-section-0 .main-message.title .title5'),
 			messageTitle_6: document.querySelector('#scroll-section-0 .main-message.title .title6'),
 			preserve3D: document.querySelector('#scroll-section-0 .preserve3D'),
+			scrollGuide : document.querySelector('.apply .scroll'),
 			cardDesign: document.querySelector('#scroll-section-0 .card-design'),
 			messageA: document.querySelector('#scroll-section-0 .main-message.a'),
 			messageA_1: document.querySelector('#scroll-section-0 .main-message.a .a1'),
@@ -687,7 +1039,8 @@ const sceneInfo = [
 			fourty_4: document.querySelector('#scroll-section-0 .fourty_4'),
 
 			pencilLogo: document.querySelector('#scroll-section-0 .pencil-logo'),
-			pencil: document.querySelector('#scroll-section-0 .pencil'),
+			pencil1: document.querySelector('#scroll-section-0 .pencil1'),
+			pencil2: document.querySelector('#scroll-section-0 .pencil2'),
 			ribbonPath: document.querySelector('.ribbon-path path'),
 			
 			
@@ -781,17 +1134,20 @@ const sceneInfo = [
 			fourty_4_opacity_in : [0, 1, {start: 0.87, end:0.89}],
 			fourty_4_translateY_in : [20,0, {start:0.87, end:0.89}],
 
-			messageC_opacity_out: [1, 0, { start: 0.9, end: 1 }],
-			messageC_translateY_out: [0, -20, { start: 0.9, end: 1 }],
+			messageC_opacity_out: [1, 0, { start: 0.98, end: 1 }],
+			messageC_translateY_out: [0, -20, { start: 0.98, end: 1 }],
 
 			pencilLogo_width_in: [1000, 200, { start: 0.1, end: 0.4 }],
 			pencilLogo_width_out: [200, 50, { start: 0.4, end: 0.8 }],
 			pencilLogo_translateX_in: [-10, -20, { start: 0.2, end: 0.4 }],
 			pencilLogo_translateX_out: [-20, -50, { start: 0.4, end: 0.8 }],
 			pencilLogo_opacity_out: [1, 0, { start: 0.8, end: 0.9 }],
-			pencil_right: [100, -70, { start: 0.3, end: 0.8 }],
-			pencil_bottom: [-80, 130, { start: 0.3, end: 0.8 }],
-			pencil_rotate: [200, -120, { start: 0.3, end: 0.8 }],
+			pencil1_right: [100, -70, { start: 0.1, end: 0.5 }],
+			pencil1_bottom: [-80, 130, { start: 0.1, end: 0.5 }],
+			pencil1_rotate: [200, -120, { start: 0.1, end: 0.5 }],
+			pencil2_right: [100, -70, { start: 0.3, end: 0.7 }],
+			pencil2_bottom: [-80, 130, { start: 0.3, end: 0.7 }],
+			pencil2_rotate: [200, -120, { start: 0.3, end: 0.7 }],
 			path_dashoffset_in: [1401, 0, { start: 0.2, end: 0.4 }],
 			path_dashoffset_out: [0, -1401, { start: 0.6, end: 0.8 }]
 		}
@@ -802,42 +1158,112 @@ const sceneInfo = [
 		scrollHeight: 0,
 		objs: {
 			container: document.querySelector('#scroll-section-1'),
+			canvasWrap : document.querySelector('.sticky-elem-canvas'),
+			canvas : document.querySelector('#video-canvas-0'),
+			context : document.querySelector('#video-canvas-0').getContext('2d'),
+
 			benefitA: document.querySelector('#scroll-section-1 .main-message.benefit.a'),
+			benefitAContent :document.querySelector('#scroll-section-1 .main-message.benefit.a .content'),
 			benefitB: document.querySelector('#scroll-section-1 .main-message.benefit.b'),
+			benefitBContent :document.querySelector('#scroll-section-1 .main-message.benefit.b .content'),
 			benefitC: document.querySelector('#scroll-section-1 .main-message.benefit.c'),
+			benefitCContent :document.querySelector('#scroll-section-1 .main-message.benefit.c .content'),
 			benefitD: document.querySelector('#scroll-section-1 .main-message.benefit.d'),
+			 benefitDContent :document.querySelector('#scroll-section-1 .main-message.benefit.d .content'),
 			benefitE: document.querySelector('#scroll-section-1 .main-message.benefit.e'),
+			 benefitEContent :document.querySelector('#scroll-section-1 .main-message.benefit.e .content'),
+
+			beneLineA: document.querySelector('#scroll-section-1 .bene-line.a'),
+			beneLineAA : document.querySelector('#scroll-section-1 .bene-line.a .a'),
+			beneLineAB : document.querySelector('#scroll-section-1 .bene-line.a .b'),
+			beneLineAC : document.querySelector('#scroll-section-1 .bene-line.a .c'),
+			beneLineB: document.querySelector('#scroll-section-1 .bene-line.b'),
+			beneLineBA: document.querySelector('#scroll-section-1 .bene-line.b .a'),
+			beneLineBB: document.querySelector('#scroll-section-1 .bene-line.b .b'),
+			beneLineBC: document.querySelector('#scroll-section-1 .bene-line.b .c'),
+			beneLineBD: document.querySelector('#scroll-section-1 .bene-line.b .d'),
+			
+			beneLineC: document.querySelector('#scroll-section-1 .bene-line.c'),
+			beneLineCA: document.querySelector('#scroll-section-1 .bene-line.c .a'),
+			beneLineCB: document.querySelector('#scroll-section-1 .bene-line.c .b'),
+			beneLineCC: document.querySelector('#scroll-section-1 .bene-line.c .c'),
+			beneLineCD: document.querySelector('#scroll-section-1 .bene-line.c .d'),
+			beneLineCE: document.querySelector('#scroll-section-1 .bene-line.c .e'),
+			beneLineD: document.querySelector('#scroll-section-1 .bene-line.d'),
+			beneLineDA: document.querySelector('#scroll-section-1 .bene-line.d .a'),
+			beneLineDB: document.querySelector('#scroll-section-1 .bene-line.d .b'),
+			beneLineDC: document.querySelector('#scroll-section-1 .bene-line.d .c'),
+			beneLineE: document.querySelector('#scroll-section-1 .bene-line.e'),
+			beneLineEA: document.querySelector('#scroll-section-1 .bene-line.e .a'),
+			beneLineEB: document.querySelector('#scroll-section-1 .bene-line.e .b'),
+			beneLineEC: document.querySelector('#scroll-section-1 .bene-line.e .c'),
+
+			videoImages : [], 
 		},
 		values: {
-			benefitA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
-			benefitA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-			benefitA_opacity_out: [1, 0, { start: 0.37, end: 0.4 }],
-			benefitA_translateY_out: [0, -20, { start: 0.37, end: 0.4 }],
 
+			videoImageCount : 150,
+			imageSequence : [0, 149, {start: 0.07, end: 1}],
+			//canvas_opacity_in : [0, 1, {start:0, end:0.062}],
+			canvasA_opacity_in : [0, 1, { start: 0.062, end: 0.124 }],
+			canvasA_opacity_out : [1, 0, { start: 0.2, end: 0.25 } ],
+			benefitA_opacity_in: [0, 1, { start: 0.062, end: 0.124 }],
+			benefitAContent_translateY_in: [20, 0, { start: 0.062, end: 0.124 }],
+			benefitA_opacity_out: [1, 0, { start: 0.2, end: 0.25 }],
+			benefitAContent_translateY_out: [0, -20, { start: 0.2, end: 0.25 }],
 
-			messageB_opacity_in: [0, 1, { start: 0.4, end: 0.5 }],
-			messageBContent_translateY_in: [20, 0, { start: 0.4, end: 0.5 }],
+			beneLineAA_left_in : [0, -300, {start: 0.062, end: 0.25}],
+			beneLineAB_left_in : [0, 300, {start: 0.062, end: 0.25}],
+			beneLineAC_left_in : [0, -300, {start: 0.062, end: 0.25}],
 
+			canvasB_opacity_in : [0, 1, { start: 0.25, end: 0.313 }],
+			canvasB_opacity_out : [1, 0, { start: 0.363, end: 0.437 } ],
+			benefitB_opacity_in: [0, 1, { start: 0.25, end: 0.313 }],
+			benefitBContent_translateY_in: [20, 0, { start: 0.25, end: 0.313 }],
+			benefitB_opacity_out: [1, 0, { start: 0.363, end: 0.437 }],
+			benefitBContent_translateY_out: [0, -20, { start: 0.363, end: 0.437 }],
 
-			benefitB_opacity_in: [0, 1, { start: 0.4, end: 0.5 }],
-			benefitB_translateY_in: [20, 0, { start: 0.4, end: 0.5 }],
-			benefitB_opacity_out: [1, 0, { start: 0.67, end: 0.7 }],
-			benefitB_translateY_out: [0, -20, { start: 0.67, end: 0.7 }],
+			beneLineBA_left_in : [0, -300, {start: 0.025, end: 0.437}],
+			beneLineBB_left_in : [0, 300, {start: 0.025, end: 0.437}],
+			beneLineBC_left_in : [0, -300, {start: 0.025, end: 0.437}],
+			beneLineBD_left_in : [0, 300, {start: 0.025, end: 0.437}],
 			
-			benefitC_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
-			benefitC_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
-			benefitC_opacity_out: [1, 0, { start: 0.97, end: 1 }],
-			benefitC_translateY_out: [0, -20, { start: 0.97, end: 1 }],
+			canvasC_opacity_in : [0, 1, { start: 0.437, end: 0.5 }],
+			canvasC_opacity_out : [1, 0, { start: 0.574, end: 0.624 } ],
+			benefitC_opacity_in: [0, 1, { start: 0.437, end: 0.5 }],
+			benefitCContent_translateY_in: [20, 0, { start: 0.437, end: 0.5 }],
+			benefitC_opacity_out: [1, 0, { start: 0.574, end: 0.624 }],
+			benefitCContent_translateY_out: [0, -20, { start: 0.574, end: 0.624 }],
 
-			benefitD_opacity_in: [0, 1, { start: 1.1, end: 1.2 }],
-			benefitD_translateY_in: [20, 0, { start: 1.1, end: 1.2 }],
-			benefitD_opacity_out: [1, 0, { start: 1.37, end: 1.4 }],
-			benefitD_translateY_out: [0, -20, { start: 1.37, end: 1.4 }],
+			beneLineCA_left_in : [0, -300, {start: 0.0437, end: 0.624}],
+			beneLineCB_left_in : [0, 300, {start: 0.0437, end: 0.624}],
+			beneLineCC_left_in : [0, -300, {start: 0.0437, end: 0.624}],
+			beneLineCD_left_in : [0, 300, {start: 0.0437, end: 0.624}],
+			beneLineCE_left_in : [0, -300, {start: 0.0437, end: 0.624}],
 
-			benefitE_opacity_in: [0, 1, { start: 1.4, end: 1.5 }],
-			benefitE_translateY_in: [20, 0, { start: 1.4, end: 1.5 }],
-			benefitE_opacity_out: [1, 0, { start: 1.67, end: 1.7 }],
-			benefitE_translateY_out: [0, -20, { start: 1.67, end: 1.7 }],
+			canvasD_opacity_in : [0, 1, { start: 0.624, end: 0.687 }],
+			canvasD_opacity_out : [1, 0, { start: 0.762, end: 0.812 } ],
+			benefitD_opacity_in: [0, 1, { start: 0.624, end: 0.687 }],
+			benefitDContent_translateY_in: [20, 0, { start: 0.624, end: 0.687 }],
+			benefitD_opacity_out: [1, 0, { start: 0.762, end: 0.812 }],
+			benefitDContent_translateY_out: [0, -20, { start: 0.762, end: 0.812 }],
+
+			beneLineDA_left_in : [0, -300, {start: 0.624, end: 0.812}],
+			beneLineDB_left_in : [0, 300, {start: 0.624, end: 0.812}],
+			beneLineDC_left_in : [0, -300, {start: 0.624, end: 0.812}],
+			beneLineDD_left_in : [0, 300, {start: 0.624, end: 0.812}],
+			beneLineDE_left_in : [0, -300, {start: 0.624, end: 0.812}],
+
+			canvasE_opacity_in : [0, 1, { start: 0.812, end: 0.875 }],
+			canvasE_opacity_out : [1, 0, { start: 0.95, end: 1 } ],
+			benefitE_opacity_in: [0, 1, { start: 0.812, end: 0.875 }],
+			benefitEContent_translateY_in: [20, 0, { start: 0.812, end: 0.875 }],
+			benefitE_opacity_out: [1, 0, { start: 0.98, end: 1 }],
+			benefitEContent_translateY_out: [0, -20, { start: 0.98, end: 1 }],
+
+			beneLineEA_left_in : [0, -300, {start: 0.812, end: 1}],
+			beneLineEB_left_in : [0, 300, {start: 0.812, end: 1}],
+			beneLineEC_left_in : [0, -300, {start: 0.812, end: 1}],
 		}
 	},
 ];
@@ -850,7 +1276,7 @@ function playAnimation() {
 
 	switch (currentScene) {
 		case 0:
-
+			objs.preserve3D.style.opacity = 1;
 			if (scrollRatio <= 0.08) {
 				objs.messageTitle.style.opacity = calcValues(values.messageTitle_opacity_in, currentYOffset);
 			} else {
@@ -914,38 +1340,41 @@ function playAnimation() {
 				objs.messageC_5.style.transform = `translate3d(0, ${calcValues(values.messageC_5_translateY_in, currentYOffset)}%, 0)`;
 				
 			} else  if (scrollRatio >= 0.79){
-				// // out
-				// objs.messageC.style.opacity = calcValues(values.messageC_opacity_out, currentYOffset);
-				if (!$(".fourty_1 span").hasClass('done')){
-					$({val:0}).animate({val : 400000}, {
-						duration: 1000,
-						step:function(){
-							var num = numberWithCommas(this.val.toFixed());
-							$(".fourty_1 span").text(num);
-						},
-						complete: function(){
-							var num = numberWithCommas(this.val.toFixed(0));
-							$(".fourty_1 span").text(num);
+				// out
+				objs.messageC.style.opacity = calcValues(values.messageC_opacity_out, currentYOffset);
+				objs.fourty.classList.add('on');
+				// if (!$(".fourty_1 span").hasClass('done')){
+				// 	$({val:0}).animate({val : 400000}, {
+				// 		duration: 1000,
+				// 		step:function(){
+				// 			var num = numberWithCommas(this.val.toFixed());
+				// 			$(".fourty_1 span").text(num);
+				// 		},
+				// 		complete: function(){
+				// 			var num = numberWithCommas(this.val.toFixed(0));
+				// 			$(".fourty_1 span").text(num);
 							
-						}
-					});
+				// 		}
+				// 	});
 
-					setTimeout(function(){
-						$({val:0}).animate({val : 40000}, {
-							duration: 750,
-							step:function(){
-								var num = numberWithCommas(this.val.toFixed());
-								$(".fourty_2 span.right").text(num);
-							},
-							complete: function(){
-								var num = numberWithCommas(this.val.toFixed(0));
-								$(".fourty_2 span.right").text(num);
+				// 	setTimeout(function(){
+				// 		$({val:0}).animate({val : 40000}, {
+				// 			duration: 750,
+				// 			step:function(){
+				// 				var num = numberWithCommas(this.val.toFixed());
+				// 				$(".fourty_2 span.right").text(num);
+				// 			},
+				// 			complete: function(){
+				// 				var num = numberWithCommas(this.val.toFixed(0));
+				// 				$(".fourty_2 span.right").text(num);
 								
-							}
-						});
-					}, 500);
-					$(".fourty_1 span").addClass('done');
-				}
+				// 			}
+				// 		});
+				// 	}, 500);
+
+					
+				// 	$(".fourty_1 span").addClass('done');
+				// }
 				
 			}
 			// 크기가 커져도 깨지지 않는 SVG의 장점을 살리기 위해 transform scale 대신 width를 조정
@@ -970,9 +1399,12 @@ function playAnimation() {
 			objs.preserve3D.style.opacity = calcValues(values.preserve3D_opacity_in, currentYOffset);
 			objs.cardDesign.style.transform = `rotateX(46deg) rotateY(0deg) rotateZ(-31deg) translateX(${calcValues(values.cardDesign_translateX_in, currentYOffset)}vw)`;
 			objs.pencilLogo.style.opacity = calcValues(values.pencilLogo_opacity_out, currentYOffset);
-			objs.pencil.style.right = `${calcValues(values.pencil_right, currentYOffset)}%`;
-			objs.pencil.style.bottom = `${calcValues(values.pencil_bottom, currentYOffset)}%`;
-			objs.pencil.style.transform = `rotate(${calcValues(values.pencil_rotate, currentYOffset)}deg)`;
+			objs.pencil1.style.right = `${calcValues(values.pencil1_right, currentYOffset)}%`;
+			objs.pencil1.style.bottom = `${calcValues(values.pencil1_bottom, currentYOffset)}%`;
+			objs.pencil1.style.transform = `rotate(${calcValues(values.pencil1_rotate, currentYOffset)}deg)`;
+			objs.pencil2.style.right = `${calcValues(values.pencil2_right, currentYOffset)}%`;
+			objs.pencil2.style.bottom = `${calcValues(values.pencil2_bottom, currentYOffset)}%`;
+			objs.pencil2.style.transform = `rotate(${calcValues(values.pencil2_rotate, currentYOffset)}deg)`;
 			
 
 			objs.sb1.style.transform = `translateX(${calcValues(values.sb1_translateX_in, currentYOffset)}vw)`;
@@ -992,18 +1424,111 @@ function playAnimation() {
 			break;
 
 			case 1:
+				// console.log(scrollRatio);
+				sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
 				
-				if (scrollRatio <= 0.25) {
+				
+				objs.context.clearRect(0,0,objs.canvas.width,objs.canvas.height);
+				objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+				objs.beneLineA.style.opacity = calcValues(values.benefitA_opacity_in, currentYOffset);
+				objs.beneLineAA.style.transform = `translateX(${calcValues(values.beneLineAA_left_in, currentYOffset)}px)`;
+				objs.beneLineAB.style.transform = `translateX(${calcValues(values.beneLineAB_left_in, currentYOffset)}px)`;
+				objs.beneLineAC.style.transform = `translateX(${calcValues(values.beneLineAC_left_in, currentYOffset)}px)`;
+				objs.beneLineBA.style.transform = `translateX(${calcValues(values.beneLineBA_left_in, currentYOffset)}px)`;
+				objs.beneLineBB.style.transform = `translateX(${calcValues(values.beneLineBB_left_in, currentYOffset)}px)`;
+				objs.beneLineBC.style.transform = `translateX(${calcValues(values.beneLineBC_left_in, currentYOffset)}px)`;
+				objs.beneLineBD.style.transform = `translateX(${calcValues(values.beneLineBD_left_in, currentYOffset)}px)`;
+				objs.beneLineCA.style.transform = `translateX(${calcValues(values.beneLineCA_left_in, currentYOffset)}px)`;
+				objs.beneLineCB.style.transform = `translateX(${calcValues(values.beneLineCB_left_in, currentYOffset)}px)`;
+				objs.beneLineCC.style.transform = `translateX(${calcValues(values.beneLineCC_left_in, currentYOffset)}px)`;
+				objs.beneLineCD.style.transform = `translateX(${calcValues(values.beneLineCD_left_in, currentYOffset)}px)`;
+				objs.beneLineCE.style.transform = `translateX(${calcValues(values.beneLineCE_left_in, currentYOffset)}px)`;
+				objs.beneLineDA.style.transform = `translateX(${calcValues(values.beneLineDA_left_in, currentYOffset)}px)`;
+				objs.beneLineDB.style.transform = `translateX(${calcValues(values.beneLineDB_left_in, currentYOffset)}px)`;
+				objs.beneLineDC.style.transform = `translateX(${calcValues(values.beneLineDC_left_in, currentYOffset)}px)`;
+				objs.beneLineEA.style.transform = `translateX(${calcValues(values.beneLineEA_left_in, currentYOffset)}px)`;
+				objs.beneLineEB.style.transform = `translateX(${calcValues(values.beneLineEB_left_in, currentYOffset)}px)`;
+				objs.beneLineEC.style.transform = `translateX(${calcValues(values.beneLineEC_left_in, currentYOffset)}px)`;
+				objs.benefitA.style.opacity = 0;
+				objs.benefitB.style.opacity = 0;
+				objs.benefitC.style.opacity = 0;
+				objs.benefitD.style.opacity = 0;
+				objs.benefitE.style.opacity = 0;
+				if (scrollRatio <= 0.15) {
 				// in
 				objs.benefitA.style.opacity = calcValues(values.benefitA_opacity_in, currentYOffset);
-				objs.benefitA.style.transform = `translate3d(0, ${calcValues(values.benefitA_translateY_in, currentYOffset)}%, 0)`;
-			} else {
+				objs.benefitAContent.style.transform = `translate3d(0, ${calcValues(values.benefitAContent_translateY_in, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasA_opacity_in, currentYOffset);
+			
+			} else if (scrollRatio <= 0.25){
 				// out
 				objs.benefitA.style.opacity = calcValues(values.benefitA_opacity_out, currentYOffset);
-				objs.benefitA.style.transform = `translate3d(0, ${calcValues(values.benefitA_translateY_out, currentYOffset)}%, 0)`;
+				objs.benefitAContent.style.transform = `translate3d(0, ${calcValues(values.benefitAContent_translateY_out, currentYOffset)}%, 0)`;
+				objs.benefitB.style.opacity = calcValues(values.benefitB_opacity_in, currentYOffset);
+				objs.canvasWrap.style.opacity = calcValues(values.canvasA_opacity_out, currentYOffset);
 			}
 
+			if (scrollRatio <= 0.33 && scrollRatio >= 0.25) {
+				// in
+				objs.benefitB.style.opacity = calcValues(values.benefitB_opacity_in, currentYOffset);
+				objs.benefitBContent.style.transform = `translate3d(0, ${calcValues(values.benefitBContent_translateY_in, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasB_opacity_in, currentYOffset);
+				objs.benefitA.style.opacity = calcValues(values.benefitA_opacity_out, currentYOffset);
+			
+			} else if (scrollRatio >= 0.33 && scrollRatio <= 0.437 ) {
+				// out
+				objs.benefitB.style.opacity = calcValues(values.benefitB_opacity_out, currentYOffset);
+				objs.benefitBContent.style.transform = `translate3d(0, ${calcValues(values.benefitBContent_translateY_out, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasB_opacity_out, currentYOffset);
+				objs.benefitC.style.opacity = calcValues(values.benefitC_opacity_in, currentYOffset);
 				
+			}	
+
+			if (scrollRatio <= 0.55  && scrollRatio >= 0.437) {
+				// in
+				objs.benefitC.style.opacity = calcValues(values.benefitC_opacity_in, currentYOffset);
+				objs.benefitCContent.style.transform = `translate3d(0, ${calcValues(values.benefitCContent_translateY_in, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasC_opacity_in, currentYOffset);
+				objs.benefitB.style.opacity = calcValues(values.benefitB_opacity_out, currentYOffset);
+				
+			} else if (scrollRatio >= 0.55  && scrollRatio <= 0.624) {
+				// out
+				objs.benefitC.style.opacity = calcValues(values.benefitC_opacity_out, currentYOffset);
+				objs.benefitCContent.style.transform = `translate3d(0, ${calcValues(values.benefitCContent_translateY_out, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasC_opacity_out, currentYOffset);
+				objs.benefitD.style.opacity = calcValues(values.benefitD_opacity_in, currentYOffset);
+		
+			}	
+			if (scrollRatio <= 0.70  && scrollRatio >= 0.624) {
+				// in
+				objs.benefitD.style.opacity = calcValues(values.benefitD_opacity_in, currentYOffset);
+				objs.benefitDContent.style.transform = `translate3d(0, ${calcValues(values.benefitDContent_translateY_in, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasD_opacity_in, currentYOffset);
+				objs.benefitC.style.opacity = calcValues(values.benefitC_opacity_out, currentYOffset);
+			
+			} else if (scrollRatio >= 0.70  && scrollRatio <= 0.812) {
+				// out
+				objs.benefitD.style.opacity = calcValues(values.benefitD_opacity_out, currentYOffset);
+				objs.benefitDContent.style.transform = `translate3d(0, ${calcValues(values.benefitDContent_translateY_out, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasD_opacity_out, currentYOffset);
+				objs.benefitE.style.opacity = calcValues(values.benefitE_opacity_in, currentYOffset);
+			
+			}	
+			if (scrollRatio <= 0.90  && scrollRatio >= 0.812) {
+				// in
+				objs.benefitE.style.opacity = calcValues(values.benefitE_opacity_in, currentYOffset);
+				objs.benefitEContent.style.transform = `translate3d(0, ${calcValues(values.benefitEContent_translateY_in, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasE_opacity_in, currentYOffset);
+				objs.benefitD.style.opacity = calcValues(values.benefitD_opacity_out, currentYOffset);
+			
+			} else if (scrollRatio >= 0.90  &&scrollRatio <= 1) {
+				// out
+				objs.benefitE.style.opacity = calcValues(values.benefitE_opacity_out, currentYOffset);
+				objs.benefitEContent.style.transform = `translate3d(0, ${calcValues(values.benefitEContent_translateY_out, currentYOffset)}%, 0)`;
+				objs.canvasWrap.style.opacity = calcValues(values.canvasE_opacity_out, currentYOffset);
+				objs.canvas.style.transform = `translate3d(0, ${calcValues(values.benefitEContent_translateY_out, currentYOffset)}%, 0)`;
+			
+			}	
 	}
 }
 
@@ -1078,6 +1603,16 @@ function calcValues(values, currentYOffset) {
 	return rv;
 }
 
+function setCanvasImages(){
+	let imgElem
+	for (i = 0 ; i < sceneInfo[1].values.videoImageCount; i++ ) {
+		imgElem = new Image();
+		imgElem.src = './video/' + (i+1).toString().padStart(4,0) + '.png';
+		sceneInfo[1].objs.videoImages.push(imgElem);
+	}
+}
+setCanvasImages();
+
 function scrollLoop() {
 	enterNewScene = false;
 	prevScrollHeight = 0;
@@ -1086,6 +1621,12 @@ function scrollLoop() {
 		prevScrollHeight += sceneInfo[i].scrollHeight;
 	}
 
+	var realFullHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+	
+	// console.log(realFullHeight);
+	var progressed = yOffset / realFullHeight * 100;
+	// console.log('progressed' + progressed);
+	document.querySelector('#myBar').style.width = progressed + "%";
 	if (yOffset < prevScrollHeight + sceneInfo[currentScene].scrollHeight) {
 		document.body.classList.remove('scroll-effect-end');
 	}
@@ -1149,10 +1690,12 @@ function loop() {
 		}
 	}
 window.addEventListener('load', () => {
+	setLayout();
 	document.body.classList.remove('before-load');
 	setLayout();
+	scrollLoop();
 	setTimeout(function(){
-					$('.title1, .title2, .title3, .title4, .title5, .title6').addClass('on');
+					$('.title1, .title2, .title3, .title4, .title5, .title6, .preserve3D').addClass('on');
 				}, 200)
 
 	window.addEventListener('scroll', () => {
@@ -1177,6 +1720,7 @@ window.addEventListener('load', () => {
 });
 
 })();
+
 
 	</script>
 </body>
